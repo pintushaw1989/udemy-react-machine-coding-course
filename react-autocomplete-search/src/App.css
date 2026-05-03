@@ -1,0 +1,53 @@
+.container {
+  min-height: 100vh;
+  background-color: aliceblue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 500px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 0.5px solid lightgray;
+  font-size: 16px;
+}
+
+.search-result {
+  max-height: 500px;
+  min-width: 500px;
+  border: 0.5px solid lightgray;
+  background-color: white;
+  overflow-y: auto;
+}
+
+span {
+  display: block;
+  padding: 5px;
+}
+
+span:hover {
+  background-color: lightgray;
+  cursor: pointer;
+}
+
+.active {
+  background-color: #eee;
+  cursor: pointer;
+}
+
+strong {
+  color: #007bff;
+  font-weight: bold;
+}
