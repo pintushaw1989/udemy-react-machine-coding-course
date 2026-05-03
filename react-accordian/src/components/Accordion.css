@@ -1,0 +1,57 @@
+.wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: whitesmoke;
+  padding-top: 30px;
+  box-sizing: border-box;
+}
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  background-color: white;
+  color: darkslategrey;
+  margin-top: 15px;
+  padding: 15px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid lightgray;
+  transition: all 0.2s ease;
+}
+
+.accordion:hover {
+  box-shadow: 0 6px 16px lightgray;
+  transform: translateY(-2px);
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+
+.accordion span {
+  font-size: 24px;
+  color: darkslategrey;
+}
+
+.answer {
+  max-height: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.3s ease,
+    padding 0.3s ease;
+  font-size: 18px;
+  line-height: 1.6;
+  color: gray;
+  text-align: start;
+}
+
+.answer.open {
+  max-height: 200px;
+}
