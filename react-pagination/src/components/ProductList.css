@@ -1,0 +1,54 @@
+.pagination-app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  padding: 20px;
+}
+
+.product-card {
+  width: 220px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background: white;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 14px lightgray;
+}
+
+.product-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.product-card p {
+  margin-top: 10px;
+  font-size: 14px;
+  color: gray;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
+  color: gray;
+}
+
+.no-product-message {
+  text-align: center;
+  padding: 20px;
+  color: gray;
+  font-size: 14px;
+}
