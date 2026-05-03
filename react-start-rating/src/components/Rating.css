@@ -1,0 +1,24 @@
+.star-rating {
+  gap: 5px;
+  cursor: pointer;
+}
+
+/* Remove default browser outline */
+.star-rating svg:focus {
+  outline: none;
+}
+
+/* Apply custom focus only when needed */
+.star-rating svg:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.active {
+  color: gold;
+}
+
+.inactive {
+  color: lightgray;
+}
