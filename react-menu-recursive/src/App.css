@@ -1,0 +1,52 @@
+.app {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.tree-view-container {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 320px;
+  padding: 16px;
+  background-color: #14213d;
+  color: white;
+  box-sizing: border-box;
+}
+
+.menu-list {
+  list-style: none;
+  padding-left: 16px;
+  margin: 0;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 8px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.menu-item p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.menu-item button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.menu-item button:focus-visible {
+  outline: 2px solid #fca311;
+  border-radius: 4px;
+}
