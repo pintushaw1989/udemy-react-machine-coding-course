@@ -1,0 +1,43 @@
+body {
+  font-family: sans-serif;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 16px;
+}
+
+button {
+  padding: 8px 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #555;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  color: #000;
+}
+
+button.active {
+  color: #2563eb;
+  border-bottom: 2px solid #2563eb;
+  font-weight: 600;
+}
+
+button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.tabpanel {
+  padding: 10px 0;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+}
