@@ -34,7 +34,6 @@ const Tabs = ({ tabs }) => {
             id={`tab-${tab.value}`}
             aria-selected={selectedTab === index}
             aria-controls={`panel-${tab.value}`}
-            tabIndex={selectedTab === index ? 0 : -1}
             className={selectedTab === index ? "active" : ""}
             onClick={() => setSelectedTab(index)}
             onKeyDown={(e) => handleKeyDown(e, index)}
