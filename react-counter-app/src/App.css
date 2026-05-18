@@ -1,0 +1,66 @@
+.counter-app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.counter-container {
+  width: 100%;
+  max-width: 250px;
+  background-color: whitesmoke;
+  border-radius: 16px;
+  padding: 32px;
+  text-align: center;
+}
+
+.count {
+  font-size: 72px;
+  font-weight: bold;
+  color: green;
+  margin-bottom: 32px;
+}
+
+.button-group {
+  display: flex;
+  gap: 12px;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+  background: black;
+  color: white;
+  font-size: 14px;
+}
+
+button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+.active {
+  background: #16a34a;
+}
+
+.step-container {
+  margin: 32px 0;
+}
+
+.step-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.step-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
