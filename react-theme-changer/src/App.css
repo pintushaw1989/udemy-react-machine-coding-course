@@ -1,0 +1,56 @@
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: var(--header-bg);
+  transition: background-color 0.3s ease;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.card {
+  background: var(--card-bg);
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
+  width: 100%;
+  max-width: 450px;
+  transition:
+    background 0.4s ease,
+    transform 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h1 {
+  margin-bottom: 16px;
+}
+
+.card p {
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.theme-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: var(--btn-bg);
+  color: var(--text-color);
+  font-weight: bold;
+}

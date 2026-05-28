@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Base Variables (Light Mode Default) */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --card-bg: #f5f5f5;
+  --header-bg: #f4f4f4;
+  --btn-bg: #e0e0e0;
+  --accent: #3b82f6;
+  --border: #e5e7eb;
+}
+
+/* Dark Mode Overrides */
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --card-bg: #1f1f1f;
+  --header-bg: #1e1e1e;
+  --btn-bg: #333333;
+  --accent: #60a5fa;
+  --border: #374151;
+}
+
+/* Global Styles */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  font-family: sans-serif;
+  height: 100vh;
+}
