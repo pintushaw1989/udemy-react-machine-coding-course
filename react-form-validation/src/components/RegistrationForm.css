@@ -1,0 +1,104 @@
+.form-card {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 450px;
+}
+
+.form-title {
+  text-align: center;
+  color: #764ba2;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.success-text {
+  color: #00c851;
+  font-size: 12px;
+  margin-bottom: 16px;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Password Strength Indicator */
+.strength-container {
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.strength-bar {
+  height: 4px;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  background-color: whitesmoke;
+}
+
+.strength-weak {
+  background-color: red;
+}
+
+.strength-medium {
+  background-color: yellow;
+}
+
+.strength-strong {
+  background-color: greenyellow;
+}
+
+.strength-text {
+  font-size: 12px;
+  color: gray;
+}
+
+.toggle-btn {
+  margin-bottom: 10px;
+}
+
+.button-group {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background-color: #764ba2;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  opacity: 0.7;
+}
+
+.reset-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background-color: #6c757d;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.reset-btn:hover {
+  opacity: 0.7;
+}
