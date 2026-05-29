@@ -1,0 +1,93 @@
+/* The container holding the child element */
+.tooltip-container {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* The floating tooltip box */
+.tooltip-box {
+  position: absolute;
+  background-color: #333;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  z-index: 100;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  pointer-events: none; /* Prevents the tooltip from blocking mouse clicks */
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Positioning Modifiers */
+.tooltip-top {
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tooltip-bottom {
+  top: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tooltip-left {
+  right: 120%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.tooltip-right {
+  left: 120%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Tooltip Arrows */
+.tooltip-box::after {
+  content: " ";
+  position: absolute;
+  border-width: 5px;
+  border-style: solid;
+}
+
+.tooltip-top::after {
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-color: #333 transparent transparent transparent;
+}
+
+.tooltip-bottom::after {
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-color: transparent transparent #333 transparent;
+}
+
+.tooltip-left::after {
+  top: 50%;
+  left: 100%;
+  margin-top: -5px;
+  border-color: transparent transparent transparent #333;
+}
+
+.tooltip-right::after {
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-color: transparent #333 transparent transparent;
+}
+
+/* Smooth fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
