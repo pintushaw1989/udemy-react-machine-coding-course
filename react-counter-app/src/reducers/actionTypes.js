@@ -1,0 +1,8 @@
+export const ActionTypes = {
+  INCREMENT: "INCREMENT",
+  DECREMENT: "DECREMENT",
+  INCREMENT_BY: "INCREMENT_BY",
+  UNDO: "UNDO",
+  REDO: "REDO",
+  RESET: "RESET",
+};

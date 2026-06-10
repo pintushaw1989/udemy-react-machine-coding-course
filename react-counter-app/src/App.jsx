@@ -1,62 +1,125 @@
-import useLocalStorage from "./hooks/useLocalStorage";
+import { useEffect, useReducer } from "react";
 import "./App.css";
+import { counterReducer, initialState } from "./reducers/counterReducer";
+import { ActionTypes } from "./reducers/actionTypes";
 
-const steps = [1, 5, 10, 25, 50, 100];
+function App() {
+  const [state, dispatch] = useReducer(counterReducer, initialState);
+  const { present, past, future } = state;
 
-const App = () => {
-  const [count, setCount] = useLocalStorage("count", 0);
-  const [step, setStep] = useLocalStorage("step", 1);
+  const increment = () => dispatch({ type: ActionTypes.INCREMENT });
+  const decrement = () => dispatch({ type: ActionTypes.DECREMENT });
+  const incrementBy = (num) =>
+    dispatch({ type: ActionTypes.INCREMENT_BY, payload: num });
+  const undo = () => dispatch({ type: ActionTypes.UNDO });
+  const redo = () => dispatch({ type: ActionTypes.REDO });
+  const reset = () => dispatch({ type: ActionTypes.RESET });
 
-  const reset = () => {
-    setCount(0);
-    setStep(1);
-  };
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      const isCtrl = event.ctrlKey;
+
+      if (!isCtrl) return;
+
+      // Ctrl + Z => Undo
+      if (event.key.toLowerCase() === "z") {
+        event.preventDefault();
+
+        if (past.length > 0) {
+          dispatch({ type: ActionTypes.UNDO });
+        }
+      }
+
+      // Ctrl + Y => Redo
+      if (event.key.toLowerCase() === "y") {
+        event.preventDefault();
+
+        if (future.length > 0) {
+          dispatch({ type: ActionTypes.REDO });
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [past.length, future.length]);
 
   return (
-    <div className="counter-app">
+    <div className="app">
       <div className="counter-container">
-        <h1>React Counter</h1>
-        <p className="count">{count}</p>
+        <h1>Counter with Undo/Redo</h1>
+
+        <div className="counter-value">
+          <span className="counter-number">{present}</span>
+        </div>
+
         <div className="button-group">
           <button
-            aria-label="Decrement Count"
-            type="button"
-            disabled={count <= 0}
-            onClick={() => setCount((prev) => Math.max(prev - step, 0))}
+            onClick={decrement}
+            className="btn btn-danger"
+            disabled={present <= 0}
           >
-            Decrement
+            -1
           </button>
-          <button type="button" onClick={reset}>
-            Reset
-          </button>
-          <button
-            aria-label="Increment Count"
-            type="button"
-            onClick={() => setCount((prev) => prev + step)}
-          >
-            Increment
+          <button onClick={increment} className="btn btn-success">
+            +1
           </button>
         </div>
-      </div>
 
-      <div className="step-container">
-        <p className="step-title">Select Step</p>
+        <div className="button-group">
+          <button onClick={() => incrementBy(5)} className="btn btn-primary">
+            +5
+          </button>
+          <button onClick={() => incrementBy(10)} className="btn btn-primary">
+            +10
+          </button>
+        </div>
 
-        <div className="step-buttons">
-          {steps.map((item) => (
-            <button
-              type="button"
-              key={item}
-              onClick={() => setStep(item)}
-              className={step === item ? "active" : ""}
-            >
-              {item}
-            </button>
-          ))}
+        <div className="button-group">
+          <button
+            onClick={undo}
+            disabled={past.length === 0}
+            className="btn btn-warning"
+          >
+            Undo ({past.length}) ctrl+z
+          </button>
+          <button
+            onClick={redo}
+            disabled={future.length === 0}
+            className="btn btn-info"
+          >
+            Redo ({future.length}) ctrl+y
+          </button>
+        </div>
+
+        <div className="button-group">
+          <button onClick={reset} className="btn btn-secondary">
+            Reset Counter
+          </button>
+        </div>
+
+        <div className="history-section">
+          <h3>History Stack</h3>
+          <div className="history-stack">
+            <div className="past-history">
+              <strong>Past:</strong>
+              {past.length > 0 ? past.join(" → ") : "Empty"}
+            </div>
+            <div className="present-display">
+              <strong>Present:</strong> {present}
+            </div>
+            <div className="future-history">
+              <strong>Future:</strong>
+              {future.length > 0 ? future.join(" → ") : "Empty"}
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default App;
