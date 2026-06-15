@@ -1,0 +1,13 @@
+Problem Statement
+
+Build a reusable and accessible React Accordion component that displays
+a list of expandable/collapsible items.
+
+Requirements:
+    Support Single Select mode (only one item open at a time).
+    Support Multi Select mode (multiple items can be open simultaneously).
+    Allow specifying default open items.
+    Provide Expand All and Collapse All actions in multi-select mode.
+    Implement smooth open/close animations.
+    Ensure accessibility using semantic buttons and appropriate ARIA attributes.
+    Handle dynamic content height changes (e.g., images or async-loaded content).
