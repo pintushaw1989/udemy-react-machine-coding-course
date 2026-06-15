@@ -1,43 +1,84 @@
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 
-export const useAccordion = () => {
+const ACCORDION_TYPES = ["single", "multi"];
+export const useAccordion = (defaultOpenIds = []) => {
   const [selectionType, setSelectionType] = useState("single");
-  const [selectedId, setSelectedId] = useState(null);
-  const [multiSelectedId, setMultiSelectedId] = useState([]);
 
-  const handleSelect = (id) => {
-    if (selectionType === "single") {
-      setMultiSelectedId([]);
-      setSelectedId((prevId) => (prevId === id ? null : id));
-    } else {
-      setSelectedId(null);
-
-      setMultiSelectedId((prevIds) =>
-        prevIds.includes(id)
-          ? prevIds.filter((item) => item !== id)
-          : [...prevIds, id],
-      );
+  // Single source of truth - store all open IDs in an array
+  const [openIds, setOpenIds] = useState(() => {
+    // Initialize based on selection type and defaults
+    if (defaultOpenIds.length > 0) {
+      return defaultOpenIds;
     }
-  };
+    return [];
+  });
 
-  const onOptionChange = (e) => {
-    // Reset both the selection
-    setSelectedId(null);
-    setMultiSelectedId([]);
+  // Sync defaultOpenIds when component mounts or selectionType changes
+  useEffect(() => {
+    if (selectionType === "single" && defaultOpenIds.length > 0) {
+      // Single select: only keep the first default ID
+      setOpenIds([defaultOpenIds[0]]);
+    } else if (selectionType === "multi" && defaultOpenIds.length > 0) {
+      // Multi select: keep all default IDs
+      setOpenIds(defaultOpenIds);
+    }
+  }, [defaultOpenIds, selectionType]); // Only runs on selectionType change, not on every render
 
-    //Set the selected value
-    setSelectionType(e.target.value);
-  };
+  const handleSelect = useCallback(
+    (id) => {
+      if (selectionType === "single") {
+        // Toggle: if already open, close; otherwise open this one
+        setOpenIds(openIds[0] === id ? [] : [id]);
+      } else {
+        // Multi select: toggle the ID
+        setOpenIds((prevIds) =>
+          prevIds.includes(id)
+            ? prevIds.filter((item) => item !== id)
+            : [...prevIds, id],
+        );
+      }
+    },
+    [selectionType, openIds],
+  );
 
-  const isOpen = (id) =>
-    selectionType === "single"
-      ? selectedId === id
-      : multiSelectedId.includes(id);
+  const onOptionChange = useCallback((e) => {
+    const newSelectionType = e.target.value;
+    setSelectionType(newSelectionType);
+
+    // Reset all open states when switching modes
+    // Alternative: Convert existing IDs intelligently
+    setOpenIds([]);
+  }, []);
+
+  const isOpen = useCallback(
+    (id) => {
+      return openIds.includes(id);
+    },
+    [openIds],
+  );
+
+  const expandAll = useCallback(
+    (allIds) => {
+      if (selectionType === "multi") {
+        setOpenIds(allIds);
+      }
+    },
+    [selectionType],
+  );
+
+  const collapseAll = useCallback(() => {
+    if (selectionType === "multi") {
+      setOpenIds([]);
+    }
+  }, [selectionType]);
 
   return {
+    ACCORDION_TYPES,
     selectionType,
     handleSelect,
     onOptionChange,
     isOpen,
+    expandAll,
+    collapseAll,
   };
 };

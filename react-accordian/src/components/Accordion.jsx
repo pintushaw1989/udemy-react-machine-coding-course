@@ -1,53 +1,60 @@
-import React from "react";
-import "./Accordion.css";
+import AccordionItem from "./AccordionItem";
 import { useAccordion } from "../hooks/useAccordion";
+import "./Accordion.css";
 
-const Accordion = ({ data }) => {
-  const { selectionType, handleSelect, onOptionChange, isOpen } =
-    useAccordion();
+const Accordion = ({ data, defaultOpenIds = [] }) => {
+  const {
+    ACCORDION_TYPES,
+    selectionType,
+    handleSelect,
+    onOptionChange,
+    isOpen,
+    expandAll,
+    collapseAll,
+  } = useAccordion(defaultOpenIds);
+
+  const allIds = data?.map((item) => item.id) || [];
 
   return (
     <div className="wrapper">
-      <h1>React Accordion</h1>
-      <div>
-        {["single", "multi"].map((type) => (
-          <label key={type}>
-            <input
-              type="radio"
-              name="selection"
-              value={type}
-              checked={selectionType === type}
-              onChange={onOptionChange}
-            />
-            {type === "single" ? "Single Select" : "Multi Select"}
-          </label>
-        ))}
-      </div>
-      {data?.map((item) => (
-        <div key={item.id} className="accordion">
-          <div
-            className="item"
-            tabIndex={0}
-            role="button"
-            aria-expanded={isOpen(item.id)}
-            aria-controls={`content-${item.id}`}
-            onClick={() => handleSelect(item.id)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                handleSelect(item.id);
-              }
-            }}
-          >
-            <h3>{item.question}</h3>
-            <span>{isOpen(item.id) ? "-" : "+"}</span>
+      <div className="header">
+        <h1>React Accordion</h1>
+        <div className="controls">
+          <div className="radio-group">
+            {ACCORDION_TYPES?.map((type) => (
+              <label key={type} className="radio-label">
+                <input
+                  type="radio"
+                  name="selection"
+                  value={type}
+                  checked={selectionType === type}
+                  onChange={onOptionChange}
+                />
+                {type === "single" ? "Single Select" : "Multi Select"}
+              </label>
+            ))}
           </div>
-          {isOpen(item.id) && (
-            <p className={`answer ${isOpen(item.id) ? "open" : ""}`}>
-              {item.answer}
-            </p>
+
+          {selectionType === "multi" && (
+            <div className="button-group">
+              <button onClick={() => expandAll(allIds)} className="action-btn">
+                Expand All
+              </button>
+              <button onClick={collapseAll} className="action-btn">
+                Collapse All
+              </button>
+            </div>
           )}
         </div>
+      </div>
+
+      {data?.map((item) => (
+        <AccordionItem
+          key={item.id}
+          item={item}
+          isOpen={isOpen(item.id)}
+          onToggle={() => handleSelect(item.id)}
+        />
       ))}
     </div>
   );
