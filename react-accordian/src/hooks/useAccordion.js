@@ -27,7 +27,7 @@ export const useAccordion = (defaultOpenIds = []) => {
   const handleSelect = useCallback(
     (id) => {
       if (selectionType === "single") {
-        // Toggle: if already open, close; otherwise open this one
+        // Toggle: if already open, then close; otherwise open this one
         setOpenIds(openIds[0] === id ? [] : [id]);
       } else {
         // Multi select: toggle the ID
@@ -46,7 +46,6 @@ export const useAccordion = (defaultOpenIds = []) => {
     setSelectionType(newSelectionType);
 
     // Reset all open states when switching modes
-    // Alternative: Convert existing IDs intelligently
     setOpenIds([]);
   }, []);
 

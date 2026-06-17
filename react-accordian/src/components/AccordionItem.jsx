@@ -1,4 +1,5 @@
 import { useState, useRef, useLayoutEffect } from "react";
+import "./AccordionItem.css";
 
 const AccordionItem = ({ item, isOpen, onToggle }) => {
   const [height, setHeight] = useState(0);
@@ -28,7 +29,7 @@ const AccordionItem = ({ item, isOpen, onToggle }) => {
   return (
     <div className="accordion">
       <button
-        className="item"
+        className="accordion-item"
         aria-expanded={isOpen}
         aria-controls={`content-${item.id}`}
         onClick={onToggle}
