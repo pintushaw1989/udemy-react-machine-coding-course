@@ -9,11 +9,6 @@ const AccordionItem = ({ item, isOpen, onToggle }) => {
   useLayoutEffect(() => {
     if (!contentRef.current) return;
 
-    if (!isOpen) {
-      setHeight(0);
-      return;
-    }
-
     setHeight(contentRef.current.scrollHeight);
 
     // Handle content changes (e.g., dynamic content loading)
@@ -41,7 +36,10 @@ const AccordionItem = ({ item, isOpen, onToggle }) => {
       <div
         className="answer-container"
         id={`content-${item.id}`}
-        style={{ maxHeight: `${height}px` }}
+        style={{
+          maxHeight: isOpen ? `${height}px` : "0px",
+          transition: "max-height 0.3s ease-out",
+        }}
         aria-hidden={!isOpen}
       >
         <div ref={contentRef} className="answer-content">

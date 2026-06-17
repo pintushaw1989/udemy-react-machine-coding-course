@@ -18,14 +18,12 @@
 
 .accordion-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 18px 20px;
   font-weight: 600;
   background: white;
   border-radius: 12px;
   border: none;
-  width: 100%;
   cursor: pointer;
   font-family: inherit;
   text-align: left;
@@ -37,30 +35,25 @@ h3 {
   font-weight: 600;
   color: gray;
   flex: 1;
-  padding-right: 15px;
 }
 
 .icon {
   font-size: 28px;
   color: gray;
   font-weight: bold;
-  transition: transform 0.3s ease;
-  display: inline-block;
   width: 30px;
   text-align: center;
 }
 
 .answer-container {
   overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: max-height;
 }
 
 .answer-content {
-  padding: 0 20px 20px 20px;
+  padding: 10px 20px 20px 20px;
   font-size: 16px;
   line-height: 1.6;
   color: gray;
   text-align: start;
-  border-top: 1px solid #ecf0f1;
+  border-top: 2px solid whitesmoke;
 }
