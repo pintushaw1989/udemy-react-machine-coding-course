@@ -1,17 +1,12 @@
 import { useState, useCallback, useEffect } from "react";
 
 const ACCORDION_TYPES = ["single", "multi"];
+
 export const useAccordion = (defaultOpenIds = []) => {
   const [selectionType, setSelectionType] = useState("single");
 
   // Single source of truth - store all open IDs in an array
-  const [openIds, setOpenIds] = useState(() => {
-    // Initialize based on selection type and defaults
-    if (defaultOpenIds.length > 0) {
-      return defaultOpenIds;
-    }
-    return [];
-  });
+  const [openIds, setOpenIds] = useState(defaultOpenIds);
 
   // Sync defaultOpenIds when component mounts or selectionType changes
   useEffect(() => {
