@@ -46,6 +46,8 @@ const Accordion = ({ data, defaultOpenIds = [] }) => {
         )}
       </div>
 
+      {!data?.length && <h3>No items available</h3>}
+
       {data?.map((item) => (
         <AccordionItem
           key={item.id}
