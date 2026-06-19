@@ -1,7 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
 
-const ACCORDION_TYPES = ["single", "multi"];
-
 export const useAccordion = (defaultOpenIds = []) => {
   const [selectionType, setSelectionType] = useState("single");
 
@@ -67,7 +65,6 @@ export const useAccordion = (defaultOpenIds = []) => {
   }, [selectionType]);
 
   return {
-    ACCORDION_TYPES,
     selectionType,
     handleSelect,
     onOptionChange,

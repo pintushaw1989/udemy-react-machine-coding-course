@@ -4,7 +4,6 @@ import "./Accordion.css";
 
 const Accordion = ({ data, defaultOpenIds = [] }) => {
   const {
-    ACCORDION_TYPES,
     selectionType,
     handleSelect,
     onOptionChange,
@@ -20,18 +19,26 @@ const Accordion = ({ data, defaultOpenIds = [] }) => {
       <h1>React Accordion</h1>
       <div className="controls">
         <div className="radio-group">
-          {ACCORDION_TYPES?.map((type) => (
-            <label key={type} className="radio-label">
-              <input
-                type="radio"
-                name="selection"
-                value={type}
-                checked={selectionType === type}
-                onChange={onOptionChange}
-              />
-              {type === "single" ? "Single Select" : "Multi Select"}
-            </label>
-          ))}
+          <label className="radio-label">
+            <input
+              type="radio"
+              name="selection"
+              value="single"
+              checked={selectionType === "single"}
+              onChange={onOptionChange}
+            />
+            Single Select
+          </label>
+          <label className="radio-label">
+            <input
+              type="radio"
+              name="selection"
+              value="multi"
+              checked={selectionType === "multi"}
+              onChange={onOptionChange}
+            />
+            Multi Select
+          </label>
         </div>
 
         {selectionType === "multi" && (
