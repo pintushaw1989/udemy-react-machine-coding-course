@@ -15,7 +15,7 @@ export const useAccordion = (defaultOpenIds = []) => {
       // Multi select: keep all default IDs
       setOpenIds(defaultOpenIds);
     }
-  }, [defaultOpenIds, selectionType]); // Only runs on selectionType change, not on every render
+  }, [defaultOpenIds, selectionType]);
 
   const handleSelect = useCallback(
     (id) => {
