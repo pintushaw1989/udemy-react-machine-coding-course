@@ -5,8 +5,8 @@ import { ActionTypes } from "./reducers/actionTypes";
 import useLocalStorage from "./hooks/useLocalStorage";
 
 function App() {
-  const [counter, setCounter] = useLocalStorage("counter", initialState);
-  const [state, dispatch] = useReducer(counterReducer, counter);
+  const [savedState, setSavedState] = useLocalStorage("counter", initialState);
+  const [state, dispatch] = useReducer(counterReducer, savedState);
   const { present, past, future } = state;
 
   const increment = () => dispatch({ type: ActionTypes.INCREMENT });
@@ -50,8 +50,8 @@ function App() {
   }, [past.length, future.length]);
 
   useEffect(() => {
-    setCounter(state);
-  }, [state, setCounter]);
+    setSavedState(state);
+  }, [state, setSavedState]);
 
   return (
     <div className="app">
