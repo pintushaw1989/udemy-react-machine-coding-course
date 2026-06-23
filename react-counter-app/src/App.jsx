@@ -2,9 +2,11 @@ import { useEffect, useReducer } from "react";
 import "./App.css";
 import { counterReducer, initialState } from "./reducers/counterReducer";
 import { ActionTypes } from "./reducers/actionTypes";
+import useLocalStorage from "./hooks/useLocalStorage";
 
 function App() {
-  const [state, dispatch] = useReducer(counterReducer, initialState);
+  const [counter, setCounter] = useLocalStorage("counter", initialState);
+  const [state, dispatch] = useReducer(counterReducer, counter);
   const { present, past, future } = state;
 
   const increment = () => dispatch({ type: ActionTypes.INCREMENT });
@@ -46,6 +48,10 @@ function App() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [past.length, future.length]);
+
+  useEffect(() => {
+    setCounter(state);
+  }, [state, setCounter]);
 
   return (
     <div className="app">
