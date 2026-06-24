@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export const useDebounce = (query, delay = 300) => {
-  const [debounce, setDebounce] = useState("");
+  const [debounce, setDebounce] = useState(query);
 
   useEffect(() => {
     const timer = setTimeout(() => {

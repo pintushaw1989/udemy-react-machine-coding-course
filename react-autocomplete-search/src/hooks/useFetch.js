@@ -16,46 +16,58 @@ export const useFetch = (query) => {
       controllerRef.current.abort();
     }
 
-    // check cache FIRST
-    if (cacheRef.current[query]) {
+    // Check cache
+    if (query in cacheRef.current) {
       setData(cacheRef.current[query]);
+      setLoading(false);
+      return;
+    }
+
+    // Guard against invalid queries
+    if (typeof query !== "string" || query.trim().length < 2) {
+      setData([]);
+      setLoading(false);
       return;
     }
 
     // create new controller
     const controller = new AbortController();
     controllerRef.current = controller;
+    setLoading(true);
 
     const fetchSearch = async () => {
-      // safety check
-      if (typeof query !== "string" || query.trim().length < 2) {
-        setData([]);
-        return;
-      }
-
-      setLoading(true);
       try {
         const res = await fetch(
           `https://dummyjson.com/products/search?q=${query}`,
           { signal: controller.signal },
         );
+
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
         const results = await res.json();
         const products = results.products || [];
 
-        // store in cache
         cacheRef.current[query] = products;
         setData(products);
       } catch (error) {
-        if (error.name !== "AbortError") console.log(error);
+        if (error.name !== "AbortError") {
+          console.error("Fetch error:", error);
+          setData([]);
+        }
       } finally {
-        setLoading(false);
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
       }
     };
 
-    fetchSearch(query);
+    fetchSearch();
 
     return () => {
       controller.abort();
+      setLoading(false);
     };
   }, [query]);
 

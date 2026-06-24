@@ -1,15 +1,12 @@
-import { useState } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { useDebounce } from "../hooks/useDebounce";
 import { useFetch } from "../hooks/useFetch";
-
 import "./AutoComplete.css";
 
 const highlightText = (text, query) => {
   if (!query) return text;
-
   const regex = new RegExp(`(${query})`, "gi");
   const parts = text.split(regex);
-
   return parts.map((part, index) =>
     part.toLowerCase() === query.toLowerCase() ? (
       <strong key={index}>{part}</strong>
@@ -23,14 +20,44 @@ const AutoComplete = () => {
   const [input, setInput] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
+  const containerRef = useRef(null);
 
   const debouncedInput = useDebounce(input, 300);
   const { loading, data: results } = useFetch(debouncedInput);
 
+  // Click outside handler
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setIsOpen(false);
+        setActiveIndex(-1);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Scroll active option into view
+  useEffect(() => {
+    if (activeIndex >= 0) {
+      const activeElement = document.getElementById(`option-${activeIndex}`);
+      if (activeElement) {
+        activeElement.scrollIntoView({ block: "nearest" });
+      }
+    }
+  }, [activeIndex]);
+
   const handleKeyDown = (e) => {
     if (!isOpen && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
-      setIsOpen(true);
-      setActiveIndex(0);
+      if (results.length > 0) {
+        setIsOpen(true);
+        setActiveIndex(0);
+      }
+      return;
+    }
+
+    if (results.length === 0) {
+      if (e.key === "Escape") setIsOpen(false);
       return;
     }
 
@@ -46,23 +73,33 @@ const AutoComplete = () => {
         break;
 
       case "Enter":
-        if (activeIndex >= 0) {
+        e.preventDefault();
+        if (activeIndex >= 0 && activeIndex < results.length) {
           setInput(results[activeIndex].title);
+          setIsOpen(false);
+          setActiveIndex(-1);
         }
-        setIsOpen(false);
-        setActiveIndex(-1);
         break;
 
       case "Escape":
         setIsOpen(false);
+        setActiveIndex(-1);
         break;
 
       default:
         break;
     }
   };
+
+  const highlightedResults = useMemo(() => {
+    return results.map((product) => ({
+      ...product,
+      highlighted: highlightText(product.title, input),
+    }));
+  }, [results, input]);
+
   return (
-    <div className="search-container">
+    <div className="search-container" ref={containerRef}>
       <input
         id="search-input"
         type="text"
@@ -74,7 +111,8 @@ const AutoComplete = () => {
         aria-activedescendant={
           activeIndex >= 0 ? `option-${activeIndex}` : undefined
         }
-        placeholder="Search anything...."
+        aria-label="Search"
+        placeholder="Search anything..."
         value={input}
         onChange={(e) => {
           const value = e.target.value;
@@ -85,7 +123,6 @@ const AutoComplete = () => {
         onFocus={() => {
           if (input.length >= 2) setIsOpen(true);
         }}
-        onBlur={() => setIsOpen(false)}
         onKeyDown={handleKeyDown}
       />
 
@@ -98,21 +135,22 @@ const AutoComplete = () => {
         >
           {loading ? (
             <p>Loading...</p>
-          ) : results.length > 0 ? (
-            results.map((product, index) => (
+          ) : highlightedResults.length > 0 ? (
+            highlightedResults.map((product, index) => (
               <span
                 key={product.id}
                 id={`option-${index}`}
                 role="option"
                 aria-selected={index === activeIndex}
                 className={index === activeIndex ? "active" : ""}
-                onMouseDown={() => {
+                onMouseDown={(e) => {
+                  e.preventDefault();
                   setInput(product.title);
                   setIsOpen(false);
                   setActiveIndex(-1);
                 }}
               >
-                {highlightText(product.title, input)}
+                {product.highlighted}
               </span>
             ))
           ) : (
