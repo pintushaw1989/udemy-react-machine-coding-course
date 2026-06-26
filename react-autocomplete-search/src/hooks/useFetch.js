@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
+// Add expiration (60 seconds)
+const CACHE_TTL = 60000;
+
 export const useFetch = (query) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -18,9 +21,14 @@ export const useFetch = (query) => {
 
     // Check cache
     if (query in cacheRef.current) {
-      setData(cacheRef.current[query]);
-      setLoading(false);
-      return;
+      const { data, timestamp } = cacheRef.current[query];
+      if (Date.now() - timestamp < CACHE_TTL) {
+        setData(data);
+        setLoading(false);
+        return;
+      }
+      // Expired - continue to fetch
+      delete cacheRef.current[query];
     }
 
     // Guard against invalid queries
@@ -49,7 +57,10 @@ export const useFetch = (query) => {
         const results = await res.json();
         const products = results.products || [];
 
-        cacheRef.current[query] = products;
+        cacheRef.current[query] = {
+          data: products,
+          timestamp: Date.now(),
+        };
         setData(products);
       } catch (error) {
         if (error.name !== "AbortError") {
