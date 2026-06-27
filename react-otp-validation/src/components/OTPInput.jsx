@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState, useCallback } from "react";
+import "./OTPInput.css";
 
 const OTPInput = ({ numInputs = 4, resendTime = 30, onComplete, onResend }) => {
   const [otp, setOtp] = useState(new Array(numInputs).fill(""));
-  const [timeLeft, setTimeLeft] = useState(resendTime);
   const [isResendDisabled, setIsResendDisabled] = useState(true);
+  const [timeLeft, setTimeLeft] = useState(resendTime);
+
   const inputRefs = useRef([]);
 
   // Focus first input on mount
