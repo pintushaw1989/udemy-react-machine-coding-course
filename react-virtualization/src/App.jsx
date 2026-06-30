@@ -7,7 +7,12 @@ const App = () => {
   return (
     <div className="app">
       <h1>Virtualized List Fixed Height</h1>
-      <VirtualizedList items={data} itemHeight={50} containerHeight={500} />
+      <VirtualizedList
+        items={data}
+        itemHeight={50}
+        containerHeight={500}
+        overscan={3}
+      />
     </div>
   );
 };
