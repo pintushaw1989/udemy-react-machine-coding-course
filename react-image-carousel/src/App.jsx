@@ -1,12 +1,12 @@
 import ImageSlider from "./components/ImageSlider";
 import "./App.css";
 
-import images from "./assets/images.json";
+import { Images } from "./assets/images.js";
 
 function App() {
   return (
     <div className="app">
-      <ImageSlider images={images} />
+      <ImageSlider images={Images} />
     </div>
   );
 }
