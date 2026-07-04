@@ -97,19 +97,19 @@ const ImageSlider = ({ images }) => {
 
       <div className="nav-buttons">
         <button
-          aria-label="Previous Slide"
-          onClick={prevSlide}
           className="prev"
           type="button"
+          onClick={prevSlide}
+          aria-label="Previous Slide"
         >
           <ChevronLeft size={24} aria-hidden="true" />
         </button>
 
         <button
-          aria-label="Next Slide"
-          onClick={nextSlide}
           className="next"
           type="button"
+          onClick={nextSlide}
+          aria-label="Next Slide"
         >
           <ChevronRight size={24} aria-hidden="true" />
         </button>
@@ -119,13 +119,13 @@ const ImageSlider = ({ images }) => {
         {images.map((_, i) => (
           <button
             key={i}
+            type="button"
+            onClick={() => setIndex(i)}
             role="tab"
             aria-label={`Go to slide ${i + 1}`}
             aria-selected={i === index}
             aria-current={i === index ? "step" : undefined}
             className={`indicator ${i === index ? "active" : ""}`}
-            onClick={() => setIndex(i)}
-            type="button"
           />
         ))}
       </div>
