@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import "./ImageSlider.css";
 
 const ImageSlider = ({ images }) => {
@@ -102,7 +101,7 @@ const ImageSlider = ({ images }) => {
           onClick={prevSlide}
           aria-label="Previous Slide"
         >
-          <ChevronLeft size={24} aria-hidden="true" />
+          {`<`}
         </button>
 
         <button
@@ -111,7 +110,7 @@ const ImageSlider = ({ images }) => {
           onClick={nextSlide}
           aria-label="Next Slide"
         >
-          <ChevronRight size={24} aria-hidden="true" />
+          {`>`}
         </button>
       </div>
 
@@ -119,13 +118,13 @@ const ImageSlider = ({ images }) => {
         {images.map((_, i) => (
           <button
             key={i}
+            className={`indicator ${i === index ? "active" : ""}`}
             type="button"
             onClick={() => setIndex(i)}
             role="tab"
             aria-label={`Go to slide ${i + 1}`}
             aria-selected={i === index}
             aria-current={i === index ? "step" : undefined}
-            className={`indicator ${i === index ? "active" : ""}`}
           />
         ))}
       </div>
