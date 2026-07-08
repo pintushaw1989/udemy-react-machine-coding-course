@@ -1,16 +1,14 @@
 body {
-  background: darkorchid;
-  height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  overflow: auto;
+  background: darkorchid;
+  height: 100vh;
 }
 
 .app {
   width: 600px;
   max-width: 95%;
-  margin: 0 auto;
+  margin: 50px auto;
   background: white;
   padding: 30px;
   border-radius: 16px;
@@ -22,8 +20,6 @@ h1 {
   color: darkslategray;
   font-size: 28px;
   font-weight: 700;
-  letter-spacing: -0.5px;
-  position: relative;
 }
 
 .todo-form {
@@ -61,13 +57,12 @@ h1 {
   font-size: 16px;
   font-weight: 600;
   transition: all 0.3s ease;
-  white-space: nowrap;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 10px gray;
 }
 
 .todo-form button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 8px 20px gray;
 }
 
 .todo-list {

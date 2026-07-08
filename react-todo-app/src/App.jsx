@@ -1,29 +1,18 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import useLocalStorage from "./hooks/useLocalStorage.js";
 import "./App.css";
 
 const STORAGE_KEY = "react-todos";
 
 function App() {
-  const [todos, setTodos] = useState(() => {
-    try {
-      const savedTodos = localStorage.getItem(STORAGE_KEY);
-      return savedTodos ? JSON.parse(savedTodos) : [];
-    } catch (error) {
-      console.error("localStorage error:", error);
-      return [];
-    }
-  });
+  const [todos, setTodos] = useLocalStorage(STORAGE_KEY, []);
 
   const [input, setInput] = useState("");
   const [editId, setEditId] = useState(null);
 
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
-    } catch (error) {
-      console.error("Failed to save todos:", error);
-    }
-  }, [todos]);
+    setTodos(todos);
+  }, [todos, setTodos]);
 
   const addTodo = useCallback(() => {
     const trimmedInput = input.trim();
@@ -45,29 +34,29 @@ function App() {
       setTodos((prevTodos) => [...prevTodos, newTodo]);
     }
     setInput("");
-  }, [input, editId]);
+  }, [input, editId, setTodos]);
 
-  const deleteTodo = useCallback((id) => {
+  const deleteTodo = (id) => {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
-  }, []);
+  };
 
-  const toggleComplete = useCallback((id) => {
+  const toggleComplete = (id) => {
     setTodos((prevTodos) =>
       prevTodos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo,
       ),
     );
-  }, []);
+  };
 
-  const editTodo = useCallback((todo) => {
+  const editTodo = (todo) => {
     setInput(todo.text);
     setEditId(todo.id);
-  }, []);
+  };
 
-  const cancelEdit = useCallback(() => {
+  const cancelEdit = () => {
     setInput("");
     setEditId(null);
-  }, []);
+  };
 
   return (
     <div className="app">
