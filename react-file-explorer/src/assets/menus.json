@@ -1,33 +1,41 @@
 [
   {
+    "id": "1",
     "label": "Home",
     "to": "/"
   },
   {
+    "id": "2",
     "label": "Account",
     "to": "/account",
     "children": [
       {
+        "id": "2-1",
         "label": "Savings",
         "to": "/savings"
       },
       {
+        "id": "2-2",
         "label": "Deposits",
         "to": "/deposits"
       },
       {
+        "id": "2-3",
         "label": "Loan",
         "to": "/loans",
         "children": [
           {
+            "id": "2-3-1",
             "label": "Personal Loan",
             "to": "/personal"
           },
           {
+            "id": "2-3-2",
             "label": "Home Loan",
             "to": "/home"
           },
           {
+            "id": "2-3-3",
             "label": "Education Loan",
             "to": "/education"
           }
@@ -36,18 +44,22 @@
     ]
   },
   {
+    "id": "3",
     "label": "Profile",
     "to": "/profile",
     "children": [
       {
+        "id": "3-1",
         "label": "Deatils",
         "to": "/details",
         "children": [
           {
+            "id": "3-1-1",
             "label": "Location",
             "to": "/location",
             "children": [
               {
+                "id": "3-1-1-1",
                 "label": "City",
                 "to": "/city"
               }
@@ -58,18 +70,22 @@
     ]
   },
   {
+    "id": "4",
     "label": "Settings",
     "to": "/settings",
     "children": [
       {
+        "id": "4-1",
         "label": "Security",
         "to": "/security",
         "children": [
           {
+            "id": "4-1-1",
             "label": "Login",
             "to": "/login"
           },
           {
+            "id": "4-1-2",
             "label": "Register",
             "to": "/register"
           }

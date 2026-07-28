@@ -17,11 +17,11 @@ const MenuItem = ({ item }) => {
 
         {hasChildren && (
           <button
-            onClick={() => handleToggle(item.label)}
+            onClick={handleToggle}
             aria-expanded={isOpen}
             aria-controls={`menu-${item.label}`}
           >
-            {isOpen ? "-" : "+"}
+            {isOpen ? "−" : "+"}
           </button>
         )}
       </div>
