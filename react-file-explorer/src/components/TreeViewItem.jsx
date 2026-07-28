@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import MenuList from "./MenuList";
+import TreeViewList from "./TreeViewList";
 
-const MenuItem = ({ item }) => {
+const TreeViewItem = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const hasChildren = item?.children?.length > 0;
@@ -26,9 +26,9 @@ const MenuItem = ({ item }) => {
         )}
       </div>
 
-      {hasChildren && isOpen && <MenuList list={item.children} />}
+      {hasChildren && isOpen && <TreeViewList list={item.children} />}
     </li>
   );
 };
 
-export default MenuItem;
+export default TreeViewItem;

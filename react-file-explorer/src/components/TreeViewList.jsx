@@ -1,16 +1,16 @@
 import React from "react";
-import MenuItem from "./MenuItem";
+import TreeViewItem from "./TreeViewItem";
 
-const MenuList = ({ list }) => {
+const TreeViewList = ({ list }) => {
   if (!list?.length) return null;
   // console.log(list);
   return (
     <ul className="menu-list">
       {list.map((item, index) => (
-        <MenuItem key={item.id || `${item.label}-${index}`} item={item} />
+        <TreeViewItem key={item.id || `${item.label}-${index}`} item={item} />
       ))}
     </ul>
   );
 };
 
-export default MenuList;
+export default TreeViewList;

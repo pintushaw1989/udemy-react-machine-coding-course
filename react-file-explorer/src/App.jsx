@@ -1,11 +1,11 @@
-import TreeView from "./components/TreeView";
+import TreeViewList from "./components/TreeViewList";
 import menus from "./assets/menus.json";
 import "./App.css";
 
 function App() {
   return (
-    <div className="app">
-      <TreeView menus={menus} />
+    <div className="tree-view-container">
+      <TreeViewList list={menus} />
     </div>
   );
 }
