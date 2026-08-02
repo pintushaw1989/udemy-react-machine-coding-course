@@ -1,75 +1,104 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import "./ChipsInput.css";
 
 export default function ChipsInput({
-  value,
-  onChange,
+  value = [],
+  onChange = () => {},
   placeholder = "Add tag...",
   maxChips = 10,
 }) {
   const [input, setInput] = useState("");
-
+  const [error, setError] = useState("");
   const inputRef = useRef();
 
-  const isValidChip = (chip) => /^[a-zA-Z ]+$/.test(chip);
+  const isValidChip = useCallback((chip) => /^[a-zA-Z ]+$/.test(chip), []);
 
-  const addChip = (chip) => {
-    const trimmed = chip.trim();
+  const addChip = useCallback(
+    (chip) => {
+      const trimmed = chip.trim();
 
-    if (!trimmed) return;
+      if (!trimmed) {
+        setError("Chip cannot be empty");
+        return;
+      }
 
-    if (!isValidChip(trimmed)) return;
+      if (!isValidChip(trimmed)) {
+        setError("Only letters and spaces allowed");
+        return;
+      }
 
-    if (value.includes(trimmed)) return;
+      if (value.includes(trimmed)) {
+        setError("Chip already exists");
+        return;
+      }
 
-    if (value.length >= maxChips) return;
+      if (value.length >= maxChips) {
+        setError(`Maximum ${maxChips} chips allowed`);
+        return;
+      }
 
-    onChange([...value, trimmed]);
+      setError("");
+      onChange([...value, trimmed]);
+      setInput("");
+    },
+    [value, onChange, maxChips, isValidChip],
+  );
 
-    setInput("");
-  };
+  const removeChip = useCallback(
+    (chip) => {
+      onChange(value.filter((item) => item !== chip));
+      setError("");
+    },
+    [value, onChange],
+  );
 
-  const removeChip = (chip) => {
-    onChange(value.filter((item) => item !== chip));
-  };
+  const handleKeyDown = useCallback(
+    (e) => {
+      if (e.key === "Enter" || e.key === ",") {
+        e.preventDefault();
+        addChip(input);
+      }
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter" || e.key === ",") {
+      if (e.key === "Backspace" && !input && value.length) {
+        e.preventDefault();
+        const lastChip = value[value.length - 1];
+        onChange(value.slice(0, -1));
+        setInput(lastChip);
+      }
+    },
+    [input, addChip, value, onChange],
+  );
+
+  const handlePaste = useCallback(
+    (e) => {
       e.preventDefault();
-      addChip(input);
-    }
+      const pasted = e.clipboardData.getData("text");
+      const chips = pasted
+        .split(/[,\n]/)
+        .map((item) => item.trim())
+        .filter(Boolean)
+        .filter(isValidChip);
 
-    if (e.key === "Backspace" && !input && value.length) {
-      const lastChip = value[value.length - 1];
+      const unique = chips.filter((item) => !value.includes(item));
+      const newChips = [...value, ...unique];
 
-      onChange(value.slice(0, -1));
-      setInput(lastChip);
-    }
-  };
+      if (newChips.length > maxChips) {
+        setError(`Only ${maxChips - value.length} chips can be added`);
+      } else {
+        setError("");
+      }
 
-  const handlePaste = (e) => {
-    e.preventDefault();
-
-    const pasted = e.clipboardData.getData("text");
-
-    const chips = pasted
-      .split(/[,\n]/)
-      .map((item) => item.trim())
-      .filter(Boolean)
-      .filter((item) => isValidChip(item));
-
-    const unique = chips.filter((item) => !value.includes(item));
-
-    onChange([...value, ...unique].slice(0, maxChips));
-  };
+      onChange(newChips.slice(0, maxChips));
+    },
+    [value, onChange, maxChips, isValidChip],
+  );
 
   return (
-    <>
+    <div>
       <div className="chips-container" onClick={() => inputRef.current.focus()}>
-        {value.map((chip) => (
-          <div key={chip} className="chip">
+        {value.map((chip, index) => (
+          <div key={`${chip}-${index}`} className="chip">
             <span>{chip}</span>
-
             <button
               aria-label={`Remove ${chip}`}
               onClick={() => removeChip(chip)}
@@ -90,9 +119,11 @@ export default function ChipsInput({
         />
       </div>
 
+      {error && <div className="error-message">{error}</div>}
+
       <div className="chip-count">
         {value.length}/{maxChips}
       </div>
-    </>
+    </div>
   );
 }
