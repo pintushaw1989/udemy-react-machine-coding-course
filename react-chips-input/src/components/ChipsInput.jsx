@@ -44,13 +44,10 @@ export default function ChipsInput({
     [value, onChange, maxChips, isValidChip],
   );
 
-  const removeChip = useCallback(
-    (chip) => {
-      onChange(value.filter((item) => item !== chip));
-      setError("");
-    },
-    [value, onChange],
-  );
+  const removeChip = (chip) => {
+    onChange(value.filter((item) => item !== chip));
+    setError("");
+  };
 
   const handleKeyDown = useCallback(
     (e) => {

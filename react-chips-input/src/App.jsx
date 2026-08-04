@@ -9,7 +9,12 @@ function App() {
     <div className="app">
       <h1>React Chips Input</h1>
 
-      <ChipsInput value={chips} onChange={setChips} maxChips={15} placeholder="Add or edit tags..."/>
+      <ChipsInput
+        value={chips}
+        onChange={setChips}
+        maxChips={15}
+        placeholder="Add or edit tags..."
+      />
 
       {/* <pre>{JSON.stringify(chips, null, 2)}</pre> */}
     </div>
