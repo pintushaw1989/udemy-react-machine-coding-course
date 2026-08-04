@@ -52,3 +52,43 @@
   color: gray;
   font-size: 14px;
 }
+
+.showing-info {
+  font-size: 14px;
+  color: #666;
+}
+
+.controls {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding: 10px 0;
+  gap: 50px;
+}
+
+.go-to-page,
+.items-per-page {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.go-to-page label,
+.items-per-page label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.go-to-page select,
+.items-per-page select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: white;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s ease;
+}

@@ -13,7 +13,9 @@ const Pagination = ({
     const pages = [];
 
     const start = Math.max(2, currentPage - 2);
+    // console.log("start", start);
     const end = Math.min(totalPages - 1, currentPage + 2);
+    // console.log("end", end);
 
     if (totalPages <= 5) {
       return Array.from({ length: totalPages }, (_, i) => i + 1);

@@ -3,16 +3,18 @@ import Pagination from "./Pagination.jsx";
 
 import "./ProductList.css";
 
-const ProductList = ({ url, productPerPage }) => {
+const ProductList = ({ url }) => {
   const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [productPerPage, setProductPerPage] = useState(10);
 
   // Calculate current page products
   const startIndex = productPerPage * (currentPage - 1);
   const endIndex = startIndex + productPerPage;
   const currentProducts = allProducts.slice(startIndex, endIndex);
   const totalProduct = allProducts.length;
+  const totalPages = Math.ceil(totalProduct / productPerPage);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -34,6 +36,11 @@ const ProductList = ({ url, productPerPage }) => {
     fetchProduct();
   }, [url]);
 
+  // Reset to page 1 when items per page changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [productPerPage]);
+
   if (loading) {
     return <div className="loading">Loading products...</div>;
   }
@@ -53,6 +60,12 @@ const ProductList = ({ url, productPerPage }) => {
           <p className="no-product-message">No products found</p>
         )}
       </div>
+
+      <div className="showing-info">
+        Showing {startIndex + 1} - {Math.min(endIndex, totalProduct)} of{" "}
+        {totalProduct} items
+      </div>
+
       {totalProduct > 0 && (
         <Pagination
           productCount={totalProduct}
@@ -60,6 +73,40 @@ const ProductList = ({ url, productPerPage }) => {
           setCurrentPage={setCurrentPage}
           productPerPage={productPerPage}
         />
+      )}
+
+      {totalProduct > 0 && (
+        <div className="controls">
+          <div className="go-to-page">
+            <label htmlFor="goToPage">Go to page:</label>
+            <select
+              id="goToPage"
+              value={currentPage}
+              onChange={(e) => setCurrentPage(Number(e.target.value))}
+            >
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                (page) => (
+                  <option key={page} value={page}>
+                    {page}
+                  </option>
+                ),
+              )}
+            </select>
+          </div>
+          <div className="items-per-page">
+            <label htmlFor="itemsPerPage">Items per page:</label>
+            <select
+              id="itemsPerPage"
+              value={productPerPage}
+              onChange={(e) => setProductPerPage(Number(e.target.value))}
+            >
+              <option value={10}>10</option>
+              <option value={25}>25</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+            </select>
+          </div>
+        </div>
       )}
     </div>
   );
