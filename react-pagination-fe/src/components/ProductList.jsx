@@ -8,6 +8,7 @@ const ProductList = ({ url }) => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [productPerPage, setProductPerPage] = useState(10);
+  const [inputPage, setInputPage] = useState("");
 
   // Calculate current page products
   const startIndex = productPerPage * (currentPage - 1);
@@ -39,6 +40,7 @@ const ProductList = ({ url }) => {
   // Reset to page 1 when items per page changes
   useEffect(() => {
     setCurrentPage(1);
+    setInputPage("");
   }, [productPerPage]);
 
   if (loading) {
@@ -79,19 +81,33 @@ const ProductList = ({ url }) => {
         <div className="controls">
           <div className="go-to-page">
             <label htmlFor="goToPage">Go to page:</label>
-            <select
+            <input
               id="goToPage"
-              value={currentPage}
-              onChange={(e) => setCurrentPage(Number(e.target.value))}
-            >
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                (page) => (
-                  <option key={page} value={page}>
-                    {page}
-                  </option>
-                ),
-              )}
-            </select>
+              type="text"
+              min={1}
+              max={totalPages}
+              value={inputPage}
+              onChange={(e) => {
+                const value = Number(e.target.value);
+                if (!isNaN(value) && value >= 1 && value <= totalPages) {
+                  setInputPage(value);
+                } else {
+                  setInputPage("");
+                }
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  const value = Number(e.target.value);
+                  if (value >= 1 && value <= totalPages) {
+                    setCurrentPage(value);
+                  } else {
+                    setCurrentPage(1); // Reset to valid page
+                  }
+                  e.target.blur(); // Remove focus after Enter
+                }
+              }}
+            />
+            <label>of {totalPages}</label>
           </div>
           <div className="items-per-page">
             <label htmlFor="itemsPerPage">Items per page:</label>

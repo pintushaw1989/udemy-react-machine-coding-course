@@ -92,3 +92,7 @@
   outline: none;
   transition: border-color 0.3s ease;
 }
+
+input { 
+  width: 50px;
+}
