@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from "react";
 
-import "./InfiniteScroll.css";
+import "./ProductList.css";
 
-const InfiniteScroll = ({ url, productPerPage }) => {
-  const [products, setProducts] = useState([]);
-  const [total, setTotal] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
+const ProductList = ({ url, productPerPage }) => {
+  const [allproducts, setAllproducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalProduct = allproducts.length;
+  const totalPages = Math.ceil(totalProduct / productPerPage);
+  const hasMoreProducts = currentPage < totalPages;
+
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await fetch(
-          `${url}?skip=${productPerPage * (currentPage - 1)}&limit=${productPerPage}`,
-        );
+        const response = await fetch(url);
         const data = await response.json();
-
-        if (data?.products?.length > 0) {
-          setProducts((prev) => [...prev, ...data.products]);
-          setTotal(data.total);
+        if (data && data.products) {
+          setAllproducts(data.products);
         }
       } catch (error) {
         console.log(error);
@@ -28,8 +28,8 @@ const InfiniteScroll = ({ url, productPerPage }) => {
       }
     };
 
-    fetchProducts();
-  }, [currentPage, productPerPage, url]);
+    fetchData();
+  }, [url]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,11 +38,14 @@ const InfiniteScroll = ({ url, productPerPage }) => {
       // console.log("Window:", window.innerHeight); // current window height
 
       // top + window + 1 > height
+
+      const scrollHeight = document.documentElement.scrollHeight;
+      const scrollTop = document.documentElement.scrollTop;
+      const innerHeight = window.innerHeight;
       if (
-        window.innerHeight + document.documentElement.scrollTop + 1 >=
-          document.documentElement.scrollHeight &&
+        innerHeight + scrollTop + 1 >= scrollHeight &&
         !loading &&
-        products.length < total
+        currentPage < totalPages
       ) {
         setCurrentPage((prev) => prev + 1);
       }
@@ -53,13 +56,16 @@ const InfiniteScroll = ({ url, productPerPage }) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [loading, products, total]);
+  }, [currentPage, loading, totalPages]);
+
+  const currentProduct = allproducts.slice(0, currentPage * productPerPage);
 
   return (
-    <>
+    <div className="container">
+      <h1>React Pagination App</h1>
       <div className="product-list">
-        {products?.length > 0
-          ? products.map((item) => (
+        {currentProduct?.length > 0
+          ? currentProduct.map((item) => (
               <div className="product-card" key={item.id}>
                 <img src={item.thumbnail} alt={item.title} />
                 <p>{item.title}</p>
@@ -70,11 +76,11 @@ const InfiniteScroll = ({ url, productPerPage }) => {
 
       {loading && <div className="loading">Loading...</div>}
 
-      {!loading && products?.length >= total && total > 0 && (
+      {!loading && !hasMoreProducts && totalProduct > 0 && (
         <p className="end-message">No more products to show</p>
       )}
-    </>
+    </div>
   );
 };
 
-export default InfiniteScroll;
+export default ProductList;
