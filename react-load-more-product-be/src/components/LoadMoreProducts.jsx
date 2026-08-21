@@ -56,7 +56,9 @@ const LoadMoreProducts = ({ url, productPerPage }) => {
           disabled={loading}
           onClick={() => setCurrentPage((p) => p + 1)}
         >
-          {loading ? "Loading..." : "Load More Products"}
+          {loading
+            ? "Loading..."
+            : `Load More Products (${products.length}/${productCount})`}
         </button>
       )}
     </div>
