@@ -36,7 +36,7 @@ const ProductList = ({ url }) => {
 
   return (
     <div className="container">
-      <h1>React Pegination App</h1>
+      <h1>React Pagination App</h1>
       <div className="product-list">
         {loading ? (
           <p>Loading....</p>
