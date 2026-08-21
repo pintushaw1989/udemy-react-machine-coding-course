@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
 import "./ProductList.css";
 
-const PRODUCT_PER_PAGE = 50;
-
-const ProductList = ({ url }) => {
+const ProductList = ({ url, productPerPage }) => {
   const [allproducts, setAllproducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalProduct = allproducts.length;
-  const totalPages = Math.ceil(totalProduct / PRODUCT_PER_PAGE);
+  const totalPages = Math.ceil(totalProduct / productPerPage);
   const hasMoreProducts = currentPage < totalPages;
 
   useEffect(() => {
@@ -32,7 +30,7 @@ const ProductList = ({ url }) => {
     fetchData();
   }, [url]);
 
-  const currentProduct = allproducts.slice(0, currentPage * PRODUCT_PER_PAGE);
+  const currentProduct = allproducts.slice(0, currentPage * productPerPage);
 
   return (
     <div className="container">
