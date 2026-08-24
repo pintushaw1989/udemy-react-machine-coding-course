@@ -16,21 +16,6 @@ function useFormValidation() {
     return validateForm(values);
   }, [values]);
 
-  const validateAndTouch = () => {
-    const validationErrors = validateForm(values);
-
-    console.log(validationErrors);
-
-    setTouched({
-      name: true,
-      email: true,
-      password: true,
-      confirmPassword: true,
-    });
-
-    return Object.keys(validationErrors).length === 0;
-  };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -47,6 +32,21 @@ function useFormValidation() {
       ...prev,
       [name]: true,
     }));
+  };
+
+  const validateAndTouch = () => {
+    const validationErrors = validateForm(values);
+
+    console.log(validationErrors);
+
+    setTouched({
+      name: true,
+      email: true,
+      password: true,
+      confirmPassword: true,
+    });
+
+    return Object.keys(validationErrors).length === 0;
   };
 
   const resetForm = () => {
