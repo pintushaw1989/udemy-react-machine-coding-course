@@ -1,6 +1,15 @@
 import "./InputField.css";
 
-function InputField({ label, type, name, value, placeholder, onChange, onBlur, error }) {
+const InputField = ({
+  label,
+  type,
+  name,
+  value,
+  placeholder,
+  onChange,
+  onBlur,
+  error,
+}) => {
   return (
     <div className="form-group">
       <label htmlFor={name} className="form-label">
@@ -21,6 +30,6 @@ function InputField({ label, type, name, value, placeholder, onChange, onBlur, e
       {error && <p className="error-text">{error}</p>}
     </div>
   );
-}
+};
 
 export default InputField;

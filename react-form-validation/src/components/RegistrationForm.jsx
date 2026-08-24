@@ -3,7 +3,7 @@ import InputField from "./InputField";
 import useFormValidation from "../hooks/useFormValidation";
 import "./RegistrationForm.css";
 
-function RegistrationForm() {
+const RegistrationForm = () => {
   const {
     values,
     errors,
@@ -121,6 +121,6 @@ function RegistrationForm() {
       </form>
     </div>
   );
-}
+};
 
 export default RegistrationForm;

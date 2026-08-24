@@ -8,7 +8,7 @@ const initialValues = {
   confirmPassword: "",
 };
 
-function useFormValidation() {
+const useFormValidation = () => {
   const [values, setValues] = useState(initialValues);
   const [touched, setTouched] = useState({});
 
@@ -27,6 +27,7 @@ function useFormValidation() {
 
   const handleBlur = (e) => {
     const { name } = e.target;
+    console.log(name);
 
     setTouched((prev) => ({
       ...prev,
@@ -63,6 +64,6 @@ function useFormValidation() {
     resetForm,
     validateAndTouch,
   };
-}
+};
 
 export default useFormValidation;

@@ -10,7 +10,7 @@
 .form-title {
   text-align: center;
   color: gray;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   font-size: 28px;
   font-weight: 500;
 }
@@ -72,7 +72,7 @@
 .button-group {
   display: flex;
   gap: 12px;
-  margin-bottom: 20px;
+  margin-top: 30px;
 }
 
 .submit-btn {
