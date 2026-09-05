@@ -1,0 +1,89 @@
+.tree-node {
+  padding: 2px 0;
+}
+
+.tree-node:hover {
+  background: #fafafa;
+  border-radius: 4px;
+}
+
+.tree-node-content {
+  display: flex;
+  align-items: center;
+  padding: 2px 0;
+}
+
+.tree-node-content:hover {
+  background: #f5f6f7;
+  border-radius: 4px;
+}
+
+.tree-node-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  font-size: 12px;
+  transition: transform 0.2s ease;
+  color: #666;
+  width: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.tree-node-toggle:hover {
+  background: #e8e8e8;
+  color: #333;
+}
+
+.tree-node-toggle.expanded {
+  transform: rotate(0deg);
+}
+
+.tree-node-toggle.collapsed {
+  transform: rotate(-90deg);
+}
+
+.tree-node-spacer {
+  width: 24px;
+  flex-shrink: 0;
+}
+
+.tree-node-children {
+  border-left: 2px solid #e8e8e8;
+  padding-left: 8px;
+  margin-left: 4px;
+  animation: slideDown 0.25s ease;
+}
+
+.tree-node-children.collapsed {
+  display: none;
+}
+
+.tree-node-count {
+  font-size: 11px;
+  color: #999;
+  margin-left: 8px;
+  font-weight: 400;
+  background: #f5f5f5;
+  padding: 0 8px;
+  border-radius: 10px;
+  line-height: 18px;
+}
+
+.tree-node-count:hover {
+  background: #e8e8e8;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

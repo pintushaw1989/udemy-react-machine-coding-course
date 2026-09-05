@@ -1,0 +1,225 @@
+/* ============================================
+   NestedCheckbox.css
+   ============================================ */
+
+/* ===== 1. CONTAINER ===== */
+.nested-checkbox {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 24px;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease;
+}
+
+.nested-checkbox:hover {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== 2. HEADER ===== */
+.nested-checkbox-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.nested-checkbox-title {
+  margin: 0;
+  color: #1a1a1a;
+  font-size: 24px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nested-checkbox-title .icon {
+  font-size: 28px;
+}
+
+.nested-checkbox-badge {
+  font-size: 14px;
+  font-weight: 400;
+  color: #999;
+  background: #f5f5f5;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-left: 12px;
+}
+
+/* ===== 3. CONTROLS ===== */
+.nested-checkbox-controls {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.nested-checkbox-controls:hover {
+  background: #f0f1f2;
+}
+
+.control-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 13px;
+  color: #ffffff;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.control-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.control-btn:active {
+  transform: translateY(0px) scale(0.98);
+}
+
+.control-btn-primary {
+  background: #4caf50;
+}
+
+.control-btn-primary:hover {
+  background: #43a047;
+}
+
+.control-btn-danger {
+  background: #f44336;
+}
+
+.control-btn-danger:hover {
+  background: #e53935;
+}
+
+.control-btn-info {
+  background: #2196f3;
+}
+
+.control-btn-info:hover {
+  background: #1976d2;
+}
+
+/* ===== 4. TREE ===== */
+.nested-checkbox-tree {
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 12px;
+  background: #ffffff;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.nested-checkbox-tree:hover {
+  border-color: #d0d0d0;
+}
+
+.nested-checkbox-tree::-webkit-scrollbar {
+  width: 6px;
+}
+
+.nested-checkbox-tree::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.nested-checkbox-tree::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.nested-checkbox-tree::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+
+/* ===== 5. ACCESSIBILITY ===== */
+.control-btn:focus-visible {
+  outline: 2px solid #4caf50;
+  outline-offset: 2px;
+}
+
+/* ===== 6. DARK MODE ===== */
+@media (prefers-color-scheme: dark) {
+  .nested-checkbox {
+    background: #1e1e1e;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  .nested-checkbox:hover {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .nested-checkbox-title {
+    color: #e8e8e8;
+  }
+
+  .nested-checkbox-badge {
+    color: #888;
+    background: #2d2d2d;
+  }
+
+  .nested-checkbox-controls {
+    background: #2d2d2d;
+  }
+
+  .nested-checkbox-controls:hover {
+    background: #333;
+  }
+
+  .nested-checkbox-tree {
+    background: #1e1e1e;
+    border-color: #3d3d3d;
+  }
+
+  .nested-checkbox-tree:hover {
+    border-color: #4d4d4d;
+  }
+
+  .control-btn-info {
+    background: #1976d2;
+  }
+
+  .control-btn-info:hover {
+    background: #1565c0;
+  }
+
+  .nested-checkbox-tree::-webkit-scrollbar-track {
+    background: #2d2d2d;
+  }
+
+  .nested-checkbox-tree::-webkit-scrollbar-thumb {
+    background: #555;
+  }
+
+  .nested-checkbox-tree::-webkit-scrollbar-thumb:hover {
+    background: #666;
+  }
+}
+
+/* ===== 7. PRINT ===== */
+@media print {
+  .nested-checkbox {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    padding: 16px;
+  }
+
+  .nested-checkbox-controls {
+    display: none;
+  }
+}
