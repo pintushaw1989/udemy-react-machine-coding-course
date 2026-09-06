@@ -14,8 +14,6 @@ export const NestedCheckbox = ({
   data = checkboxData,
   initialChecked = false,
   showControls = true,
-  className = "",
-  style = {},
 }) => {
   // State for checked items
   const [checkedMap, setCheckedMap] = useState(() =>
@@ -82,7 +80,7 @@ export const NestedCheckbox = ({
   }, [data]);
 
   return (
-    <div className={`nested-checkbox ${className}`} style={style}>
+    <div className="nested-checkbox">
       {/* Header */}
       <div className="nested-checkbox-header">
         <h2 className="nested-checkbox-title">
