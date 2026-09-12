@@ -1,58 +1,40 @@
-import React, { useState } from "react";
-import "../App.css";
+import { useState } from "react";
+import "./Tabs.css";
 
-const Tabs = ({ tabs }) => {
-  const [selectedTab, setSelectedTab] = useState(0);
+const Tabs = ({ tabs, defaultActiveId }) => {
+  // State: which tab is currently active
+  const [activeTabId, setActiveTabId] = useState(
+    defaultActiveId || (tabs.length > 0 ? tabs[0].id : null)
+  );
 
-  if (!tabs?.length) return null;
-
-  const handleKeyDown = (e, index) => {
-    if (e.key === "ArrowRight") {
-      const next = (index + 1) % tabs.length;
-      setSelectedTab(next);
-      document.getElementById(`tab-${tabs[next].value}`)?.focus();
-    }
-
-    if (e.key === "ArrowLeft") {
-      const prev = index === 0 ? tabs.length - 1 : index - 1;
-      setSelectedTab(prev);
-      document.getElementById(`tab-${tabs[prev].value}`)?.focus();
-    }
-
-    if (e.key === "Enter" || e.key === " ") {
-      setSelectedTab(index);
-    }
-  };
+  // Find the active tab object from the config
+  const activeTab = tabs.find((tab) => tab.id === activeTabId);
 
   return (
-    <div>
-      <div role="tablist" aria-orientation="horizontal" className="tabs">
-        {tabs.map((tab, index) => (
+    <div className="tabs-container">
+      {/* Tab Buttons (Navigation) */}
+      <div className="tabs-header" role="tablist">
+        {tabs.map((tab) => (
           <button
-            key={tab.value}
+            key={tab.id}
             role="tab"
-            id={`tab-${tab.value}`}
-            aria-selected={selectedTab === index}
-            aria-controls={`panel-${tab.value}`}
-            className={selectedTab === index ? "active" : ""}
-            onClick={() => setSelectedTab(index)}
-            onKeyDown={(e) => handleKeyDown(e, index)}
+            aria-selected={activeTabId === tab.id}
+            className={`tab-button ${
+              activeTabId === tab.id ? "active" : ""
+            }`}
+            onClick={() => setActiveTabId(tab.id)}
           >
             {tab.label}
           </button>
         ))}
       </div>
 
-      <div
-        role="tabpanel"
-        className="tabpanel"
-        id={`panel-${tabs[selectedTab].value}`}
-        aria-labelledby={`tab-${tabs[selectedTab].value}`}
-      >
-        {tabs[selectedTab].panel}
+      {/* Tab Content (Conditional Rendering) */}
+      <div className="tab-content" role="tabpanel">
+        {activeTab ? activeTab.content : <p>No tab selected</p>}
       </div>
     </div>
   );
-};
+}
 
 export default Tabs;
