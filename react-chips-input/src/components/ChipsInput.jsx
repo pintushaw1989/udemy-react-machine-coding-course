@@ -91,7 +91,7 @@ export default function ChipsInput({
   );
 
   return (
-    <div>
+    <>
       <div className="chips-container" onClick={() => inputRef.current.focus()}>
         {value.map((chip, index) => (
           <div key={`${chip}-${index}`} className="chip">
@@ -121,6 +121,6 @@ export default function ChipsInput({
       <div className="chip-count">
         {value.length}/{maxChips}
       </div>
-    </div>
+    </>
   );
 }

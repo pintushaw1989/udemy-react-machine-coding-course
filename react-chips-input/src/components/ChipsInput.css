@@ -3,13 +3,12 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid lightgray;
   padding: 12px;
   margin-top: 50px;
   border-radius: 12px;
   min-height: 60px;
   max-width: 600px;
-  background: #ffffff;
   transition: all 0.2s ease;
 }
 
@@ -47,16 +46,17 @@
   height: 24px;
   align-items: center;
   gap: 6px;
-  background: #2563eb;
-  color: white;
+  background: transparent;
+  color: #333;
   padding: 4px 12px;
+  border: 2px solid #333;
   border-radius: 20px;
   font-size: 14px;
-  font-weight: 500;
-  transition: all 0.2s ease;
+  font-weight: 600;
+  /* transition: all 0.2s ease;
   user-select: none;
   white-space: nowrap;
-  /* animation: scaleIn 0.2s ease; */
+  animation: scaleIn 0.2s ease; */
 }
 
 /* .chip:hover {
@@ -68,18 +68,18 @@
 .chip button {
   border: none;
   background: transparent;
-  color: white;
+  color: #333;
   cursor: pointer;
   padding: 0;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   font-size: 16px;
-  transition: all 0.2s ease;
   opacity: 0.7;
+  transition: all 0.2s ease;
 }
 
 /* .chip button:hover {
