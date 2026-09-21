@@ -1,0 +1,97 @@
+.chip-input-container {
+  width: 500px;
+  min-height: 48px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: text;
+  background: #fff;
+}
+
+.chip-input-container input {
+  flex: 1;
+  min-width: 120px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  padding: 6px 0;
+}
+
+.chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 16px;
+  background: #e5e7eb;
+  font-size: 14px;
+}
+
+.chip button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  padding: 0;
+}
+
+.chip span {
+  cursor: default;
+  padding: 0 2px;
+}
+
+.chip-info {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #666;
+}
+
+.chip-count {
+  margin-top: 12px;
+  font-size: 13px;
+  color: #64748b;
+  text-align: right;
+  font-weight: 500;
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 13px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  font-weight: 500;
+  /* animation: slideDown 0.2s ease; */
+}
+
+/* @keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} */

@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from "react";
-import "./ChipsInput.css";
+import "./ChipInput.css";
 
 export default function ChipsInput({
   value = [],
@@ -11,21 +11,11 @@ export default function ChipsInput({
   const [error, setError] = useState("");
   const inputRef = useRef();
 
-  const isValidChip = useCallback((chip) => /^[a-zA-Z ]+$/.test(chip), []);
-
   const addChip = useCallback(
     (chip) => {
       const trimmed = chip.trim();
 
-      if (!trimmed) {
-        setError("Chip cannot be empty");
-        return;
-      }
-
-      if (!isValidChip(trimmed)) {
-        setError("Only letters and spaces allowed");
-        return;
-      }
+      if (!trimmed) return;
 
       if (value.includes(trimmed)) {
         setError("Chip already exists");
@@ -41,7 +31,7 @@ export default function ChipsInput({
       onChange([...value, trimmed]);
       setInput("");
     },
-    [value, onChange, maxChips, isValidChip],
+    [value, onChange, maxChips],
   );
 
   const removeChip = (chip) => {
@@ -73,8 +63,7 @@ export default function ChipsInput({
       const chips = pasted
         .split(/[,\n]/)
         .map((item) => item.trim())
-        .filter(Boolean)
-        .filter(isValidChip);
+        .filter(Boolean);
 
       const unique = chips.filter((item) => !value.includes(item));
       const newChips = [...value, ...unique];
@@ -87,12 +76,15 @@ export default function ChipsInput({
 
       onChange(newChips.slice(0, maxChips));
     },
-    [value, onChange, maxChips, isValidChip],
+    [value, onChange, maxChips],
   );
 
   return (
-    <>
-      <div className="chips-container" onClick={() => inputRef.current.focus()}>
+    <div
+      className="chip-input-container"
+      onClick={() => inputRef.current.focus()}
+    >
+      <div className="chips">
         {value.map((chip, index) => (
           <div key={`${chip}-${index}`} className="chip">
             <span>{chip}</span>
@@ -121,6 +113,6 @@ export default function ChipsInput({
       <div className="chip-count">
         {value.length}/{maxChips}
       </div>
-    </>
+    </div>
   );
 }

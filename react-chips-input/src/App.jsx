@@ -1,4 +1,4 @@
-import ChipsInput from "./components/ChipsInput";
+import ChipsInput from "./components/ChipInput";
 import useLocalStorage from "./hooks/useLocalStorage";
 import "./App.css";
 
