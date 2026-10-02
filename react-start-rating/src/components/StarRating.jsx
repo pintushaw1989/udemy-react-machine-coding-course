@@ -1,30 +1,42 @@
 import { useState, useRef } from "react";
+import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import "./StarRating.css";
 
 /**
  * StarRating Component
  * --------------------
- * Uses Unicode stars (★ / ☆) — no SVG, no icon font.
+ * Uses react-icons (Font Awesome pack) for star rendering.
  * Supports full + half star selection with hover preview.
  */
-const StarRating = ({ totalStars = 5, initialRating = 0, onChange }) => {
+const StarRating = ({
+  totalStars = 5,
+  initialRating = 0,
+  onChange,
+  size = 44,
+}) => {
   const [rating, setRating] = useState(initialRating);
   const [hoverRating, setHoverRating] = useState(null);
   const starRefs = useRef([]);
 
   const displayRating = hoverRating !== null ? hoverRating : rating;
 
+  // Pick icon components based on selected set
+  const icons = { full: FaStar, half: FaStarHalfAlt, empty: FaRegStar };
+
   /**
-   * Returns 0 to 100 — how much of this star should be filled.
+   * Returns the fill state of a star at given index: 'full' | 'half' | 'empty'
    */
-  const getStarFillPercentage = (index) => {
+  const getStarState = (index) => {
     const starMin = index;
     const starMax = index + 1;
 
-    if (displayRating >= starMax) return 100;
-    if (displayRating <= starMin) return 0;
-
-    return Math.min((displayRating - starMin) * 100, 100);
+    if (displayRating >= starMax) return "full";
+    if (displayRating >= starMax - 0.5) return "half";
+    if (displayRating > starMin) {
+      // Partial fill (e.g. 0.3) — treat as half if ≥ 0.25, otherwise empty
+      return displayRating - starMin >= 0.25 ? "half" : "empty";
+    }
+    return "empty";
   };
 
   /**
@@ -104,28 +116,28 @@ const StarRating = ({ totalStars = 5, initialRating = 0, onChange }) => {
         tabIndex={0}
       >
         {stars.map((index) => {
-          const fillPercent = getStarFillPercentage(index);
+          const state = getStarState(index);
+
+          // Pick correct icon for current state
+          const IconComponent =
+            state === "full"
+              ? icons.full
+              : state === "half"
+                ? icons.half
+                : icons.empty;
+
           return (
             <div
               key={index}
               ref={(el) => (starRefs.current[index] = el)}
-              className="star-wrapper"
+              className={`star-wrapper star-wrapper--${state}`}
               onMouseMove={(e) => handleMouseMove(e, index)}
               onClick={(e) => handleClick(e, index)}
               role="radio"
-              aria-checked={displayRating >= index + 1}
+              aria-checked={state === "full"}
               aria-label={`${index + 1} star${index !== 0 ? "s" : ""}`}
             >
-              {/* Layer 1: empty star */}
-              <span className="star star--bg">★</span>
-
-              {/* Layer 2: filled star, clipped by width */}
-              <span
-                className="star-fill-wrapper"
-                style={{ width: `${fillPercent}%` }}
-              >
-                <span className="star star--fill">★</span>
-              </span>
+              <IconComponent size={size} className="star-icon" />
             </div>
           );
         })}
