@@ -1,0 +1,143 @@
+.rating-card {
+  background: whitesmoke;
+  padding: 32px;
+  border-radius: 32px;
+  text-align: center;
+  min-width: 380px;
+}
+
+/* ---------- Heading ---------- */
+.rating-card h1 {
+  font-weight: 500;
+  color: gray;
+}
+
+/* ---------- Stars row ---------- */
+.stars-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+  cursor: pointer;
+}
+
+.stars-container:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255, 183, 77, 0.4);
+}
+
+/* ---------- Individual star wrapper ---------- */
+.star-wrapper {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  font-size: 48px; /* controls the size of the ★ glyph */
+  line-height: 48px;
+  transition: transform 0.1s ease;
+}
+
+.star-wrapper:hover {
+  transform: scale(1.1);
+}
+
+/* ---------- Base star (shared styles) ---------- */
+.star {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 48px;
+  height: 48px;
+  font-size: 48px;
+  line-height: 48px;
+  text-align: center;
+}
+
+/* Empty state (grey outline style — we still use ★ but grey) */
+.star--bg {
+  color: #4a4a62;
+  transition: color 0.15s ease;
+}
+
+.star-wrapper:hover .star--bg {
+  color: #5a5a75;
+}
+
+/* Filled state (gold) */
+.star--fill {
+  color: #ffb74d;
+  text-shadow: 0 0 8px rgba(255, 183, 77, 0.6);
+}
+
+/* ---------- The clipping wrapper (this creates the half-star) ---------- */
+.star-fill-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 48px;
+  width: 0; /* set dynamically via inline style */
+  overflow: hidden;
+  pointer-events: none;
+  /* transition: width 0.12s cubic-bezier(0.2, 0.9, 0.3, 1.1); */
+}
+
+/* The inner ★ MUST stay 3rem wide so it doesn't squish when clipped */
+.star-fill-wrapper .star--fill {
+  width: 48px;
+  height: 48px;
+  display: block;
+}
+
+/* ---------- Rating number ---------- */
+.rating-value {
+  width: 64px;
+  font-size: 24px;
+  font-weight: 600;
+  background: #1e1e2a;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 48px;
+  color: #ffd28c;
+  margin-bottom: 24px;
+}
+
+.rating-value span {
+  font-size: 20px;
+  color: #9a9ab0;
+  font-weight: 400;
+}
+
+/* ---------- Reset button ---------- */
+.reset-btn {
+  background: #3b3b55;
+  border: none;
+  color: #d8d8ec;
+  font-size: 1rem;
+  padding: 0.7rem 1.8rem;
+  border-radius: 3rem;
+  cursor: pointer;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+/* ---------- Hint row ---------- */
+.hint {
+  margin-top: 1.2rem;
+  font-size: 0.85rem;
+  color: #8888a0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.hint i {
+  font-style: normal;
+  background: #32324a;
+  padding: 0.2rem 0.6rem;
+  border-radius: 1rem;
+}
